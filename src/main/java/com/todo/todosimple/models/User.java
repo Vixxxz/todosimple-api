@@ -106,8 +106,6 @@ public class User
         }
         return Objects.equals(this.username, other.username) && Objects.equals(this.id, other.id) &&
                 Objects.equals(this.password, other.password);
-
-
     }
 
     @Override
