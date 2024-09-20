@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity // define que é uma entidade
@@ -21,23 +22,24 @@ public class User
 
     @Id //identifica que o atributo abaixo é o id da tabela
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Cria uma estrategia para criação do id
-    @Column(name ="id", nullable = false, unique = true) //define o nome da coluna, se é nulo ou não e se é único
+    @Column(name ="use_id", nullable = false, unique = true) //define o nome da coluna, se é nulo ou não e se é único
     private Long id; //Usar a classe do tipo pois não aceita nulo, ao contrario do tipo primitivo
 
-    @Column(name = "username", length = 100, nullable = false, unique = true) //tambem pode definir o tamanho maximo que a coluna aceita
+    @Column(name = "use_username", length = 100, nullable = false, unique = true) //tambem pode definir o tamanho maximo que a coluna aceita
     @NotNull (groups = CreateUser.class) //@NotNull, @NotEmpty são validações no próprio programa, não no bd
     @NotEmpty (groups = CreateUser.class)
     @Size(groups = CreateUser.class, min = 2, max = 100)
     private String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) //Isso impede da api retornar a senha para o front
-    @Column(name = "password", length = 60, nullable = false)
+    @Column(name = "use_password", length = 60, nullable = false)
     @NotNull (groups = {CreateUser.class, UpdateUser.class})
     @NotEmpty (groups = {CreateUser.class, UpdateUser.class})
     @Size(groups = {CreateUser.class, UpdateUser.class}, min = 8, max = 60)
     private String password;
 
-    //private List<Task> tasks = new ArrayList<Task>();
+    @OneToMany(mappedBy = "user")
+    private List<Task> tasks = new ArrayList<Task>();
 
 
     public User() {
@@ -71,6 +73,14 @@ public class User
 
     public void setPassword(@NotNull(groups = {CreateUser.class, UpdateUser.class}) @NotEmpty(groups = {CreateUser.class, UpdateUser.class}) @Size(groups = {CreateUser.class, UpdateUser.class}, min = 8, max = 60) String password) {
         this.password = password;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
