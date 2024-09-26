@@ -24,8 +24,8 @@ public interface TaskRepository extends JpaRepository<Task, Long>
                                                                     //"SELECT t": seleciona as instâncias de Task (tarefas).
                                                                     //"FROM Task t": define a entidade de onde estamos buscando
                                                                     //"WHERE t.user.id = :id": filtra as tarefas onde o campo id do usuário associado à tarefa (t.user.id) é igual ao valor do parâmetro :id.
-                                                                    //O parâmetro :id é uma referência ao parâmetro que será passado no método.
-    //List<Task> FindByUserId(@Param("id") Long id);  //@Param("id") indica que o valor passado como argumento do método (id) será usado como o parâmetro :id.
+                                                                    //O parâmetro :id é uma referência ao parâmetro que será passado no metodo
+    //List<Task> FindByUserId(@Param("id") Long id);  //@Param("id") indica que o valor passado como argumento do metodo (id) será usado como o parâmetro :id.
 
     //Faz uma busca que retorna uma lista de task de um único usuário usando SQL:
     //@Query(value = "SELECT * FROM task t WHERE t.tas_use_id = :id", nativeQuery = true) //nativeQuery = true: indica que essa consulta está usando SQL nativo
