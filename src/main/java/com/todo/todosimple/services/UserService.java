@@ -15,12 +15,9 @@ public class UserService
 {
     private final UserRepository userRepository;
 
-    private TaskRepository taskRepository;
-
     @Autowired //Spring faz o trabalho de instanciar o userRepository. o injeta automaticamente na classe onde for necessário.
-    public UserService(UserRepository userRepository, TaskRepository taskRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.taskRepository = taskRepository;
     }
 
     //Busca o usuário pelo ID: (Usa o metodo do repository para salvar no banco)
