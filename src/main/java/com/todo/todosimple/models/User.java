@@ -1,5 +1,6 @@
 package com.todo.todosimple.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -74,6 +75,7 @@ public class User
         this.password = password;
     }
 
+    @JsonIgnore //define que quando retornar um ResponseEntity<User>, as tasks nao irao ser mandadas para o front. Somente os dados do User
     public List<Task> getTasks() {
         return tasks;
     }
