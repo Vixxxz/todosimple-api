@@ -60,10 +60,18 @@ public class UserController {
         return ResponseEntity.created(uri).build();
     }
 
-//    //para atualizar existe o Put e o Pat. Put: atualiza tudo. Pat: atualiza apenas algumas coisas do User
-//    @PutMapping("/{id}")
-//    @Validated(User.UpdateUser.class)
-//    public ResponseEntity<Void> updateCliente(@Valid @ResponseBody User user, @PathVariable Long id){
-//
-//    }
+    //para atualizar existe o Put e o Pat. Put: atualiza tudo. Pat: atualiza apenas algumas coisas do User
+    @PutMapping("/{id}")
+    @Validated(User.UpdateUser.class)
+    public ResponseEntity<Void> updateCliente(@Valid @RequestBody User user, @PathVariable Long id){
+        user.setId(id);
+        userService.updateUser(user);
+        return ResponseEntity.noContent().build(); //retorna um 204 ou No Content como http status
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCliente(@PathVariable Long id){
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
 }
