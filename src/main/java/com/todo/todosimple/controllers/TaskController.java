@@ -2,6 +2,7 @@ package com.todo.todosimple.controllers;
 
 import com.todo.todosimple.models.Task;
 import com.todo.todosimple.services.TaskService;
+import com.todo.todosimple.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,24 +13,24 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/task")
 public class TaskController {
-    TaskService taskService;
-
     @Autowired
-    public TaskController(TaskService taskService) {
-        this.taskService = taskService;
-    }
+    TaskService taskService;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Task> findById (Long id) {
+    public ResponseEntity<Task> findById (@ PathVariable Long id) {
         Task task = taskService.findById(id);
         return ResponseEntity.ok().body(task);
     }
 
     @GetMapping("/user/{userId}")   //nome do parametro recebido tem que estar igual do que esta no @GetMapping
     public ResponseEntity<List<Task>> findAllByUserId(@PathVariable Long userId) {
+        userService.findById(userId);
         List<Task> tasks = taskService.findAllByUserId(userId);
         return ResponseEntity.ok().body(tasks);
     }

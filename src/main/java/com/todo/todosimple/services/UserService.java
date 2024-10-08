@@ -58,6 +58,5 @@ public class UserService
         {
             throw new RuntimeException("Não foi possível deletar o usuário pois há entidades relacionadas.\n ID: " + id + ", Tipo: " + User.class.getName());
         }
-
     }
 }
